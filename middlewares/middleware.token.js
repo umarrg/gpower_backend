@@ -3,11 +3,12 @@ const { secretKey } = require('../configs').webToken;
 
 function tokenMiddleware() {
     return async (req, res, next) => {
-        const token = req.body.token || req.query.token || req.headers['token'];
+        const token = req.body.token || req.query.token || req.headers['x-access-token'];
         if (token) {
             try {
                 const validToken = await verifyTokenPromisified(token);
-                req.userAuth = { id: validToken.userId, userType: validToken.userType };
+                
+                 req.user = validToken;
                 next();
             } catch (err) {
                 console.log('valid token error >> ', err);

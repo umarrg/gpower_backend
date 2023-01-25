@@ -1,6 +1,6 @@
 function authorizer(expectedUsertypeArr) {
     return (req, res, next) => {
-        if (expectedUsertypeArr.includes(req.userAuth.userType)) {
+        if (expectedUsertypeArr.includes(req.user.userType)) {
             next();
         }
         else {

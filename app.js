@@ -22,6 +22,10 @@ app.use('/api/v1/auth', authRoute);
 const userRoute = require('./routes/route.user')();
 app.use('/api/v1/user', userRoute);
 
+
+const paymentRoute = require('./routes/route.payment')();
+app.use('/api/v1/payment', paymentRoute);
+
 //Admin Route
 const adminRoute = require('./routes/route.admin')();
 app.use('/api/v1/admin', adminRoute);
