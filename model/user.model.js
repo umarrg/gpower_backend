@@ -5,7 +5,8 @@ const bcrypt = require('bcrypt');
 const User = new Schema({
     email: { type: String, require: true, unique: true },
     password: { type: String, require: true, },
-    username: { type: String, },
+    fname: { type: String, },
+    lname: { type: String, },
     userType: { type: String, default: "user" },
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now }
@@ -26,4 +27,4 @@ User.pre('save', function (next) {
 });
 
 
-module.exports = mongoose.model('users', User);
+module.exports = mongoose.model('cleerusers', User);
