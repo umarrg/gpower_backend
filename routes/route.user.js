@@ -119,7 +119,7 @@ module.exports = () => {
 async function reque(text) {
     headers = {
         'Content-tFype': 'application/json',
-        'Authorization': 'Bearer 230F8094626F52211F6342DAD2FA20166F79AF3A5005C8349E0A46CF4C7E9228'
+        'Authorization': 'Bearer CAA83BF3FCB3291B53E6C7133B396D10811118368C5DF3ED1C3140A7ABE149F8'
     };
     var dataString = {
         "text": text
