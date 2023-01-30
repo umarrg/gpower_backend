@@ -2,7 +2,17 @@ const express = require('express');
 const Controller = require('../dao/dao.user');
 const { tokenMiddleware } = require('../middlewares/middleware.token');
 const request = require('request');
+const multer = require('multer');
+const upload = multer();
 const axios = require("axios");
+const FormData = require("form-data");
+
+
+
+const fs = require('fs');
+const pdf = require('pdf-parse');
+
+
 
 
 module.exports = () => {
@@ -15,6 +25,22 @@ module.exports = () => {
         } catch (err) {
             console.log(err);
             res.status(500).json({ status: false, payload: null, message: err });
+        }
+    });
+
+    api.post('/uploadpdf', async function (req, res, next) {
+        const { url } = req.body;
+
+        try {
+
+            const data = await uploads(url);
+
+
+            res.status(200).json({ status: true, payload: data, message: 'User created successfully!' });
+        } catch (err) {
+            console.log(err);
+            res.status(500).json({ status: false, payload: null, message: err });
+
         }
     });
 
@@ -117,22 +143,62 @@ module.exports = () => {
 }
 
 async function reque(text) {
-    headers = {
-        'Content-tFype': 'application/json',
-        'Authorization': 'Bearer CAA83BF3FCB3291B53E6C7133B396D10811118368C5DF3ED1C3140A7ABE149F8'
-    };
+
     var dataString = {
-        "text": text
+        "document": text
     };
 
-    return await axios.post("https://api.copyleaks.com/v2/writer-detector/my-custom-id/check", dataString, {
-        headers
+    return await axios.post("https://api.gptzero.me/predict_single_text", dataString, {
+
     }).then((res) => {
         return res.data
     }).catch((err) => {
         console.log(err);
         return err
     })
+
+
+
+}
+
+async function uploads(url) {
+
+    const axios = require('axios');
+
+    let formData = new FormData();
+    formData.append("files", request(url));
+
+    return axios({
+        method: 'post',
+        url: 'https://api.gptzero.me/predict_files',
+        data: formData,
+        headers: { 'Content-Type': 'multipart/form-data' },
+    })
+        .then(res => {
+            return res.data
+        })
+        .catch(error => {
+            console.error(error);
+            return error
+        })
+
+    // var dataString = {
+    //     "files": file
+    // };
+
+    // var formdata = new FormData();
+    // formdata.append("files", JSON.stringify(file));
+
+
+
+    // return await axios.post("https://api.gptzero.me/predict_files", dataString, {
+
+    // }).then((res) => {
+    //     return res.data
+    // }).catch((err) => {
+    //     console.log(err);
+    //     return err
+    // })
 
 
 
