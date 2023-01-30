@@ -48,6 +48,7 @@ module.exports = () => {
         const { text } = req.body;
         try {
 
+
             const data = await reque(text)
 
             res.status(200).json({ status: true, payload: data, message: 'Fetched successfully!' });
@@ -148,9 +149,7 @@ async function reque(text) {
         "document": text
     };
 
-    return await axios.post("https://api.gptzero.me/predict_single_text", dataString, {
-
-    }).then((res) => {
+    return await axios.post("https://api.gptzero.me/predict_single_text", dataString).then((res) => {
         return res.data
     }).catch((err) => {
         console.log(err);
@@ -163,12 +162,11 @@ async function reque(text) {
 
 async function uploads(url) {
 
-    const axios = require('axios');
 
     let formData = new FormData();
     formData.append("files", request(url));
 
-    return axios({
+    return await axios({
         method: 'post',
         url: 'https://api.gptzero.me/predict_files',
         data: formData,
