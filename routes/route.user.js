@@ -149,7 +149,7 @@ async function reque(text) {
         "document": text
     };
 
-    return await axios.post("https://api.gptzero.me/predict_single_text", dataString).then((res) => {
+    return await axios.post("https://api.gptzero.me/v2/predict/text", dataString).then((res) => {
         return res.data
     }).catch((err) => {
         console.log(err);
