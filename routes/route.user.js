@@ -168,7 +168,7 @@ async function uploads(url) {
 
     return await axios({
         method: 'post',
-        url: 'https://api.gptzero.me/predict_files',
+        url: 'https://api.gptzero.me/v2/predict/files',
         data: formData,
         headers: { 'Content-Type': 'multipart/form-data' },
     })
@@ -180,24 +180,7 @@ async function uploads(url) {
             return error
         })
 
-    // var dataString = {
-    //     "files": file
-    // };
-
-    // var formdata = new FormData();
-    // formdata.append("files", JSON.stringify(file));
-
-
-
-    // return await axios.post("https://api.gptzero.me/predict_files", dataString, {
-
-    // }).then((res) => {
-    //     return res.data
-    // }).catch((err) => {
-    //     console.log(err);
-    //     return err
-    // })
-
+       
 
 
 }
